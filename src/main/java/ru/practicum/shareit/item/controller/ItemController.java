@@ -17,11 +17,12 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
+    public static final String USER_ID_HEADER = "X-Sharer-User-Id";
     private final ItemService itemService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ItemDto create(@RequestHeader("X-Sharer-User-Id") Long userId,
+    public ItemDto create(@RequestHeader(USER_ID_HEADER) Long userId,
                           @Valid @RequestBody NewItemRequest item) {
         log.info("Пришел POST запрос /items с телом: {}", item);
         ItemDto createdItem = itemService.create(userId, item);
@@ -32,7 +33,7 @@ public class ItemController {
     @PatchMapping("/{id}")
     public ItemDto update(@PathVariable("id") Long itemId,
                           @Valid @RequestBody UpdateItemRequest newItem,
-                          @RequestHeader("X-Sharer-User-Id") Long ownerId) {
+                          @RequestHeader(USER_ID_HEADER) Long ownerId) {
         log.info("Пришел PATCH запрос /items/{} с телом: {} от пользователя с ID: {}", itemId, newItem, ownerId);
         ItemDto updatedItem = itemService.update(itemId, newItem, ownerId);
         log.info("Отправлен ответ /items/{} с телом: {}", itemId, updatedItem);
@@ -40,7 +41,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@RequestHeader("X-Sharer-User-Id") Long ownerId,
+    public boolean delete(@RequestHeader(USER_ID_HEADER) Long ownerId,
                           @PathVariable("id") Long itemId) {
         log.info("Пришел DELETE запрос /items/{} от пользователя с ID: {}", itemId, ownerId);
         boolean deletedItem = itemService.delete(ownerId, itemId);
@@ -49,7 +50,7 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ItemDto findItem(@RequestHeader("X-Sharer-User-Id") Long ownerId,
+    public ItemDto findItem(@RequestHeader(USER_ID_HEADER) Long ownerId,
                             @PathVariable("id") Long itemId) {
         log.info("Пришел GET запрос /items/{} от пользователя с ID: {}", itemId, ownerId);
         ItemDto item = itemService.findItem(ownerId, itemId);
@@ -58,7 +59,7 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public Collection<ItemDto> searchItemsByText(@RequestHeader("X-Sharer-User-Id") Long ownerId,
+    public Collection<ItemDto> searchItemsByText(@RequestHeader(USER_ID_HEADER) Long ownerId,
                                                  @RequestParam(name = "text", defaultValue = "") String text) {
         log.info("Пришел GET запрос /items/search с параметром text: {} от пользователя с ID: {}", text, ownerId);
         Collection<ItemDto> items = itemService.searchItemsByText(ownerId, text);
@@ -67,7 +68,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public Collection<ItemDto> findAll(@RequestHeader("X-Sharer-User-Id") Long ownerId) {
+    public Collection<ItemDto> findAll(@RequestHeader(USER_ID_HEADER) Long ownerId) {
         log.info("Пришел GET запрос /items от пользователя с ID: {}", ownerId);
         Collection<ItemDto> items = itemService.findAll(ownerId);
         log.info("Отправлен ответ /items с телом: {}", items);

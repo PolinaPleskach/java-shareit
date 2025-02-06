@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceImpl implements UserService {
 
-    UserStorage userStorage;
+    private final UserStorage userStorage;
 
     @Autowired
     public UserServiceImpl(@Qualifier("InMemoryUserStorage") UserStorage userStorage) {

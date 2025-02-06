@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ItemServiceImpl implements ItemService {
 
-    ItemStorage itemStorage;
-    UserStorage userStorage;
+    private final ItemStorage itemStorage;
+    private final UserStorage userStorage;
 
     @Autowired
     public ItemServiceImpl(@Qualifier("InMemoryItemStorage") ItemStorage itemStorage,

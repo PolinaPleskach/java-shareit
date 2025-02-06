@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class InMemoryItemStorage implements ItemStorage {
 
-    Map<Long, Item> items = new HashMap<>();
-    AtomicLong idCounter = new AtomicLong(1);
+    private final Map<Long, Item> items = new HashMap<>();
+    private AtomicLong idCounter = new AtomicLong(1);
 
     private boolean checkItem(Item item, String text) {
         return item.getAvailable() && (item.getName().toLowerCase().contains(text)
