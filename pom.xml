@@ -131,18 +131,15 @@
 				<version>3.12.1</version>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.5</version> <!-- Актуальная версия -->
-				<configuration>
-					<argLine>-Dfile.encoding=UTF-8</argLine>
-					<systemPropertyVariables>
-						<spring.profiles.active>test</spring.profiles.active>
-					</systemPropertyVariables>
-					<trimStackTrace>false</trimStackTrace> <!-- Показывает полный стек ошибок -->
-				</configuration>
-			</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<configuration>
+				<systemPropertyVariables>
+					<spring.profiles.active>test</spring.profiles.active>
+				</systemPropertyVariables>
+			</configuration>
+		</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
