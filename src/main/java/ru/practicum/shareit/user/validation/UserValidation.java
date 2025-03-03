@@ -1,6 +1,5 @@
 package ru.practicum.shareit.user.validation;
 
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.user.dto.UserDto;
@@ -8,7 +7,6 @@ import ru.practicum.shareit.user.dto.UserDto;
 @Component
 public class UserValidation {
 
-    @SneakyThrows
     public void checkUserFields(UserDto userDto) {
         if (userDto == null) {
             throw new ValidationException("Нет данных");
